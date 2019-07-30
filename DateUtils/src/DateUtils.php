@@ -8,6 +8,14 @@ use DateTime;
 
 class DateUtils 
 {
+    const DATETIME_FORMAT = 'j.n.Y G:i:s';
+    const DATE_FORMAT = 'j.n.Y';
+    const TIME_FORMAT = 'G:i:s';
+    
+    const DB_DATETIME_FORMAT = 'Y-m-d H:i:s';
+    const DB_DATE_FORMAT = 'Y-m-d';
+    const DB_TIME_FORMAT = 'H:i:s';
+
     public static function getDateTime($date) :DateTime
     {
         if (ctype_digit($date)) {
