@@ -49,4 +49,32 @@ class DateUtils
         $dateTime = self::getDateTime($date);
         return $dateTime->format('d.m.Y H:i:s');
     }
+
+    private static function getPrettyDate($dateTime)
+    {
+        $now = new DateTime();
+        if ($dateTime->format('Y') != $now->format('Y'))
+            return $dateTime->format('j.n.Y');
+        $dayMonth = $dateTime->format('d-m');
+        if ($dayMonth == $now->format('d-m'))
+            return "Dnes";
+        $now->modify('-1 DAY');
+        if ($dayMonth == $now->format('d-m'))
+            return "Včera";
+        $now->modify('+2 DAYS');
+        if ($dayMonth == $now->format('d-m'))
+            return "Zítra";
+        return $dateTime->format('j.') . self::$months[$dateTime->format('n') - 1];
+    }
+
+    public static function prettyDate($date)
+    {
+        return self::getPrettyDate(self::getDateTime($date));
+    }
+
+    public static function prettyDateTime($date)
+    {
+        $dateTime = self::getDateTime($date);
+        return self::getPrettyDate($dateTime) . $dateTime->format(' H:i:s');
+    }
 }
