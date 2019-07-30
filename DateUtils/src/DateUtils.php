@@ -24,6 +24,12 @@ class DateUtils
 
     private static $months = array('ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince');
 
+    private static $formatDictionary = array(
+        self::DATE_FORMAT => self::DB_DATE_FORMAT,
+        self::DATETIME_FORMAT => self::DB_DATETIME_FORMAT,
+        self::TIME_FORMAT => self::DB_TIME_FORMAT,
+    );
+
     public static function getDateTime($date) :DateTime
     {
         if (ctype_digit($date)) {
