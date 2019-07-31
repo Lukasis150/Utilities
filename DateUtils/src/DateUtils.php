@@ -90,4 +90,10 @@ class DateUtils
         }
         return false;
     }
+    
+    public static function dbNow()
+    {
+        $dateTime = new DateTime();
+        return $dateTime->format(self::DB_DATETIME_FORMAT);
+    }
 }
