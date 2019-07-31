@@ -13,13 +13,13 @@ class DateUtilsTest extends TestCase
 {   
     public static function testFormatDate()
     {
-        $dateTime = new DateUtils();
-        self::assertEquals('03.12.2018', $dateTime->formatDate(date('2018-12-03 13:06:34.3870')));
+        $dateUtils = new DateUtils();
+        self::assertEquals('03.12.2018', $dateUtils->formatDate(date('2018-12-03 13:06:34.3870')));
     }
     
     public static function testFormatDateTimeTest()
     {
-        $dateTime = new DateUtils();
-        self::assertEquals('03.12.2018 13:06:34', $dateTime->formatDateTime(date('2018-12-03 13:06:34.3870')));
+        $dateUtils = new DateUtils();
+        self::assertEquals('03.12.2018 13:06:34', $dateUtils->formatDateTime(date('2018-12-03 13:06:34.3870')));
     }
 }
