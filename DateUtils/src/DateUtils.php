@@ -5,7 +5,7 @@ declare (strict_types = 1);
 namespace Lukas\App;
 
 use DateTime;
-
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
 class DateUtils 
 {
     const DATETIME_FORMAT = 'j.n.Y G:i:s';
@@ -76,6 +76,33 @@ class DateUtils
     {
         $dateTime = self::getDateTime($date);
         return self::getPrettyDate($dateTime) . $dateTime->format(' H:i:s');
+    }
+
+    public static function parseDateTime($date, $format = self::DATETIME_FORMAT)
+    {
+        if (mb_substr_count($date, ':') == 1)
+            $date .= ':00';
+        // Smaže mezery před nebo za separátory
+        $a = array('/([\.\:\/])\s+/', '/\s+([\.\:\/])/', '/\s{2,}/');
+        $b = array('\1', '\1', ' ');
+        $date = trim(preg_replace($a, $b, $date));
+        // Smaže nuly před čísly
+        $a = array('/^0(\d+)/', '/([\.\/])0(\d+)/');
+        $b = array('\1', '\1\2');
+        $date = preg_replace($a, $b, $date);
+        // Vytvoří instanci DateTime, která zkontroluje zda zadané datum existuje
+        $dateTime = DateTime::createFromFormat($format, $date);
+        $errors = DateTime::getLastErrors();
+        // Vyvolání chyby
+        if ($errors['warning_count'] + $errors['error_count'] > 0)
+        {
+            if (in_array($format, self::$errorMessages))
+                throw new InvalidArgumentException(self::$errorMessages[$format]);
+            else
+                throw new InvalidArgumentException('Neplatná hodnota');
+        }
+        // Návrat data v MySQL formátu
+        return $dateTime->format(self::$formatDictionary[$format]);
     }
 
     public static function validDate($date, $format = self::DATETIME_FORMAT)
