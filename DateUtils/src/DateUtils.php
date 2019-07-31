@@ -13,6 +13,8 @@ class DateUtils
     const TIME_FORMAT = 'G:i:s';
 
     const DB_DATETIME_FORMAT = 'Y-m-d H:i:s';
+    //2018-12-03 13:06:34.387854
+    const DB_DATETIME_FORMAT_MILISECONDS = 'Y-m-d H:i:s.u';
     const DB_DATE_FORMAT = 'Y-m-d';
     const DB_TIME_FORMAT = 'H:i:s';
 
