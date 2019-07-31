@@ -77,4 +77,17 @@ class DateUtils
         $dateTime = self::getDateTime($date);
         return self::getPrettyDate($dateTime) . $dateTime->format(' H:i:s');
     }
+
+    public static function validDate($date, $format = self::DATETIME_FORMAT)
+    {   
+        try
+        {
+            self::parseDateTime($date, $format);
+            return true;
+        }
+        catch (InvalidArgumentException $e)
+        {
+        }
+        return false;
+    }
 }
